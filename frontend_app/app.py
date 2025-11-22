@@ -12,9 +12,8 @@ PROJECT_ID = "test-rag-backend-v4"
 BUCKET_NAME = "ai-empower-rag-v4-uploads" 
 API_URL = "https://rag-retrieval-v4-873142271416.us-central1.run.app/query" 
 
-st.set_page_config(page_title="AI Empower RAG V4", layout="wide")
-st.title("Enterprise RAG V4 (Async Parent-Child)")
-st.subheader("Client Project: " + PROJECT_ID)
+st.set_page_config(page_title="Test Medical RAG V4", layout="wide")
+st.title("Test Medical RAG V4")
 
 # --- State Management (Persists Chat History) ---
 if "session_id" not in st.session_state:
@@ -50,7 +49,7 @@ with st.sidebar:
     # Client Selector (Simulates Multi-Tenancy)
     st.session_state.client_id = st.text_input("Client ID (Tenant Key)", 
                                                 value=st.session_state.client_id)
-    st.caption(f"Files uploaded here go to: gs://{BUCKET_NAME}/uploads/{st.session_state.client_id}/")
+    # The GCS path detail is removed as requested.
 
     st.header("Self-Service Upload")
     uploaded_file = st.file_uploader("PDF/PPTX Document", type=['pdf', 'pptx'])
@@ -106,15 +105,11 @@ if prompt := st.chat_input("Ask a question about your documents..."):
                 else:
                     data = response.json()
                     answer = data.get("answer", "Error retrieving answer.")
-                    context_used = data.get("context_used", "No context found.")
+                    # context_used is retrieved but not displayed as requested.
                     
                     # Display Answer
                     st.markdown(answer)
-                    
-                    # Display Context Source (V4 Debugging Feature)
-                    with st.expander("Show Context Used (Parent Chunks)"):
-                        st.code(context_used)
-                
+                                
                 # 3. Add assistant message to history
                 st.session_state.messages.append({"role": "assistant", "content": answer})
 
