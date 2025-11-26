@@ -1,0 +1,11 @@
+google-cloud-storage
+google-cloud-firestore
+google-cloud-pubsub
+langchain==0.1.0
+langchain-community==0.0.10
+langchain-google-vertexai
+pypdf
+flask
+gunicorn
+pandas
+pyarrow
